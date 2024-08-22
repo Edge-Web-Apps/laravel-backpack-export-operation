@@ -44,7 +44,7 @@ class CrudExportFromGenerator implements FromGenerator, ShouldAutoSize
         foreach ($entries as $rowValue) {
             $tempRow = null;
             foreach($config as $column){
-                $tempRow[] .= $rowValue[$column['name']];
+                $tempRow[] .= $rowValue[$column['name']] ?? null;
             }
             yield $tempRow;
         }
