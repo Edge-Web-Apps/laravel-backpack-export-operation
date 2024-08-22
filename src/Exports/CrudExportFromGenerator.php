@@ -34,18 +34,19 @@ class CrudExportFromGenerator implements FromGenerator, ShouldAutoSize
 
         CRUD::setModel($log->model);
 
-        $query = $log->model::select(
-            $log->config)
-            ->cursor();
+        $entries = $log->model::all();
 
-//        $query = $log->model::select(
-//            'id',
-//            'deal_id',
-//            'dealer_id')
-//            ->cursor();
+        $config = $log->config;
 
-        foreach ($query as $deal) {
-            yield $log->config;
+        //Yield row first
+        yield(array_column($log->config,'label'));
+
+        foreach ($entries as $rowValue) {
+            $tempRow = null;
+            foreach($config as $column){
+                $tempRow[] .= $rowValue[$column['name']];
+            }
+            yield $tempRow;
         }
     }
 
