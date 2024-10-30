@@ -32,23 +32,19 @@ class CrudExport implements FromView, ShouldAutoSize
         $log_model = config('backpack.operations.export.export_log_model');
         $log = $log_model::find($this->export_log->id);
 
-//        $parts = parse_url($this->export_log->export_parameters['_http_referrer']);
-//        parse_str($parts['query'], $query);
         $query = $this->export_log->export_parameters;
 
         CRUD::setModel($log->model);
 
         //Accept parameters
-        if(isset($query['from_to']) && !isset($query['rollover_campaign'])){
-            $query['from_to'] = json_decode($query['from_to']);
-            $entries = $log->model::whereBetween('created_at', [$query['from_to']->from, $query['from_to']->to])->get();
+        if(isset($query['f']) && !isset($query['rollover_campaign'])){
+            $entries = $log->model::whereBetween('created_at', [$query['f']->from, $query['r']->to])->get();
         }
-        elseif(!isset($query['from_to']) && isset($query['rollover_campaign'])){
+        elseif(!isset($query['f']) && isset($query['rollover_campaign'])){
             $entries = $log->model::where('rollover_campaign',$query['rollover_campaign'])->get();
         }
-        elseif(isset($query['from_to']) && isset($query['rollover_campaign'])){
-            $query['from_to'] = json_decode($query['from_to']);
-            $entries = $log->model::whereBetween('created_at', [$query['from_to']->from, $query['from_to']->to])->where('rollover_campaign',$query['rollover_campaign'])->get();
+        elseif(isset($query['f']) && isset($query['rollover_campaign'])){
+            $entries = $log->model::whereBetween('created_at', [$query['f']->from, $query['r']->to])->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         else{
             $entries = $log->model::all();
