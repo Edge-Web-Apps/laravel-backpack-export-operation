@@ -149,6 +149,24 @@ trait ExportOperation
             'default' => BaseExcel::CSV
         ]);
 
+        //Pre-grab rollover info
+        //Grab events list variable for use in addField below
+        $fixedRolloverArray = array();
+        $rolloverList = \App\Models\RegistrationRolloverSettings::all();
+        if(isset($rolloverList)){
+            foreach($rolloverList as $value){
+                $fixedRolloverArray[$value['id']] = $value['public_name'];
+            }
+        }
+
+        CRUD::addField([
+            'name' => 'rollover_campaign',
+            'label' => 'Campaign',
+            'type' => 'select_from_array',
+            'options' => $fixedRolloverArray,
+            'allows_null' => false
+        ]);
+
         return view('export-operation::configure-export', $this->data);
     }
 
