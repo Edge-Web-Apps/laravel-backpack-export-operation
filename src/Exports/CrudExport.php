@@ -36,6 +36,18 @@ class CrudExport implements FromView, ShouldAutoSize
 
         CRUD::setModel($log->model);
 
+        //Set donation type based on refferer
+        if(str_contains($query['_http_referrer'],"find-donations-team")){
+            $entries = $log->model::where('donation_type','=','team');
+        }
+        elseif(str_contains($query['_http_referrer'],"find-donations-direct")){
+            $entries = $log->model::where('donation_type','=','team');
+        }
+        else{
+            $entries = $log->model::where('donation_type','=','individual');
+        }
+
+
         //Accept parameters
         if(isset($query['f']) && !isset($query['rollover_campaign'])){
             $entries = $log->model::whereBetween('created_at', [$query['f'], $query['r']])->get();
