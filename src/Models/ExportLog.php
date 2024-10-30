@@ -23,7 +23,7 @@ class ExportLog extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     protected $fillable = [
-        'user_id', 'file_path', 'file_type', 'disk', 'model',
+        'user_id', 'file_path', 'file_type', 'disk', 'model', 'export_parameters',
         'config', 'started_at', 'completed_at'
     ];
     protected $casts = [

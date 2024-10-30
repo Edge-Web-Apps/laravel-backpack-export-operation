@@ -34,10 +34,6 @@ class CrudExport implements FromView, ShouldAutoSize
 
         CRUD::setModel($log->model);
 
-        $inputs = Request::all();
-
-        dd($inputs);
-
         $entries = $log->model::all();
         return view('export-operation::exports.crud-export', [
             'config' => $log->config,
