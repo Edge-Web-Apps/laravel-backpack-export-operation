@@ -167,6 +167,12 @@ trait ExportOperation
             'allows_null' => false
         ]);
 
+        CRUD::addField([
+            'type'  => 'date_range',
+            'name'  => 'from_to',
+            'label' => 'Date Range'
+        ]);
+
         return view('export-operation::configure-export', $this->data);
     }
 
