@@ -189,6 +189,7 @@ trait ExportOperation
             'disk' => config('backpack.operations.export.disk'),
             'model' => get_class($this->crud->model),
             'config' => $config,
+            'export_parameters' => $request->all(),
         ]);
 
         $export_should_queue = $this->crud->getOperationSetting('queueExport', 'export') ?? false;
