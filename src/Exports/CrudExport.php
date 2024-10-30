@@ -50,16 +50,16 @@ class CrudExport implements FromView, ShouldAutoSize
 
         //Accept parameters
         if(isset($query['f']) && !isset($query['rollover_campaign'])){
-            $entries = $log->model::whereBetween('created_at', [$query['f'], $query['r']])->get();
+            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']])->get();
         }
         elseif(!isset($query['f']) && isset($query['rollover_campaign'])){
-            $entries = $log->model::where('rollover_campaign',$query['rollover_campaign'])->get();
+            $entries = $entries->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         elseif(isset($query['f']) && isset($query['rollover_campaign'])){
-            $entries = $log->model::whereBetween('created_at', [$query['f'], $query['r']])->where('rollover_campaign',$query['rollover_campaign'])->get();
+            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']])->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         else{
-            $entries = $log->model::all();
+            $entries = $entries->all();
         }
 
         return view('export-operation::exports.crud-export', [
