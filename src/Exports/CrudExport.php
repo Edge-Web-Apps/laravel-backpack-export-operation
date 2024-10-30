@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Illuminate\Http\Request;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 class CrudExport implements FromView, ShouldAutoSize
@@ -32,6 +33,8 @@ class CrudExport implements FromView, ShouldAutoSize
         $log = $log_model::find($this->export_log->id);
 
         CRUD::setModel($log->model);
+
+        dd(Request::all());
 
         $entries = $log->model::all();
         return view('export-operation::exports.crud-export', [

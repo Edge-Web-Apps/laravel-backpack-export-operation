@@ -261,7 +261,8 @@ trait ExportOperation
             $log->started_at = Carbon::now();
             $log->save();
 
-            Excel::store(new CrudExportFromGenerator($log->id), $file_path, $disk);
+            //todo: move this over to generator eventually after more testing
+            Excel::store(new CrudExport($log->id), $file_path, $disk);
         }
 
         return response([
