@@ -59,7 +59,7 @@ class CrudExport implements FromView, ShouldAutoSize
             $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']])->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         else{
-            $entries = $entries->all();
+            $entries = $entries->get();
         }
 
         return view('export-operation::exports.crud-export', [
