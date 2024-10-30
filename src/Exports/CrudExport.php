@@ -41,22 +41,21 @@ class CrudExport implements FromView, ShouldAutoSize
             $entries = $log->model::where('donation_type','=','team');
         }
         elseif(str_contains($query['_http_referrer'],"find-donations-direct")){
-            $entries = $log->model::where('donation_type','=','team');
+            $entries = $log->model::where('donation_type','=','direct');
         }
         else{
             $entries = $log->model::where('donation_type','=','individual');
         }
 
-
         //Accept parameters
         if(isset($query['f']) && !isset($query['rollover_campaign'])){
-            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']])->get();
+            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']. ' 23:59:59'])->get();
         }
         elseif(!isset($query['f']) && isset($query['rollover_campaign'])){
             $entries = $entries->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         elseif(isset($query['f']) && isset($query['rollover_campaign'])){
-            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']])->where('rollover_campaign',$query['rollover_campaign'])->get();
+            $entries = $entries->whereBetween('created_at', [$query['f'], $query['r']. ' 23:59:59'])->where('rollover_campaign',$query['rollover_campaign'])->get();
         }
         else{
             $entries = $entries->get();
