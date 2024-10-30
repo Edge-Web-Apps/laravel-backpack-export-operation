@@ -30,6 +30,7 @@ class ExportLog extends Model
         'config' => 'array',
         'started_at' => 'datetime',
         'completed_at' => 'datetime',
+        'export_parameters' => 'array'
     ];
 
     /*
