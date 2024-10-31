@@ -277,11 +277,25 @@ trait ExportOperation
         }
 
         if (is_null($log->started_at)) {
+            //Grab name info
+            $query = $log->export_parameters;
+            if(str_contains($query['_http_referrer'],"find-donations-team")){
+                $baseFileName = "donations_team";
+            }
+            elseif(str_contains($query['_http_referrer'],"find-donations-direct")){
+                $baseFileName = "donations_direct";
+            }
+            else{
+                $baseFileName = "donations_individual";
+            }
+
+
             $disk = $log->disk;
-            $file_name = strtolower(__('export-operation::export.export')) . '_' .
-                str_replace(' ', '_', strtolower($this->crud->entity_name_plural)) . '_' .
-                Carbon::now()->format('d-m-y-H-i-s') . '_' .
-                Str::uuid() . '.' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
+//            $file_name = strtolower(__('export-operation::export.export')) . '_' .
+//                str_replace(' ', '_', strtolower($this->crud->entity_name_plural)) . '_' .
+//                Carbon::now()->format('d-m-y-H-i-s') . '_' .
+//                Str::uuid() . '.' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
+            $file_name = $baseFileName . '_' . Carbon::now()->format('d-m-y-H-i-s') . '_' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
             $file_path = config('backpack.operations.export.path') . '/' . $file_name;
             $log->file_path = $file_path;
             $log->started_at = Carbon::now();
