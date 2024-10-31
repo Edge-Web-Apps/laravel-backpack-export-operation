@@ -168,7 +168,7 @@ trait ExportOperation
         ]);
 
         CRUD::addField([
-            'type'  => 'date_range',
+            'type'  => 'date_range_nullable',
             'name'  => 'from_to',
             'label' => 'Date Range'
         ]);
