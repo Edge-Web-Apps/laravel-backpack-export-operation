@@ -164,6 +164,7 @@ trait ExportOperation
             'label' => 'Campaign',
             'type' => 'select_from_array',
             'options' => $fixedRolloverArray,
+            'default' => null,
             'allows_null' => true
         ]);
 
