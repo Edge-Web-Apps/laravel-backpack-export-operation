@@ -295,7 +295,9 @@ trait ExportOperation
 //                str_replace(' ', '_', strtolower($this->crud->entity_name_plural)) . '_' .
 //                Carbon::now()->format('d-m-y-H-i-s') . '_' .
 //                Str::uuid() . '.' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
-            $file_name = $baseFileName . '_' . Carbon::now()->format('d-m-y-H-i-s') . '_' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
+            $file_name = strtolower(__('export-operation::export.export')) . '_' .
+                $baseFileName . '_' .
+                Carbon::now()->format('d-m-y-H-i-s') . '.' . strtolower($log->file_type === 'Dompdf' ? 'pdf' : $log->file_type);
             $file_path = config('backpack.operations.export.path') . '/' . $file_name;
             $log->file_path = $file_path;
             $log->started_at = Carbon::now();
