@@ -164,7 +164,7 @@ trait ExportOperation
             'label' => 'Campaign',
             'type' => 'select_from_array',
             'options' => $fixedRolloverArray,
-            'allows_null' => false
+            'allows_null' => true
         ]);
 
         CRUD::addField([
