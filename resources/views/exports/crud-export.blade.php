@@ -34,7 +34,7 @@
                         ]);
                         $escaped_content = html_entity_decode(strip_tags($content));
                     @endphp
-                    @if($column['label'] == "Lottery Ticket 1 for 30")
+                    @if($entry['label'] == "Lottery Ticket 1 for 30")
                         CATS
                     @else
                     {{ $escaped_content }}
