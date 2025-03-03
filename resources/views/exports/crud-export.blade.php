@@ -34,12 +34,7 @@
                         ]);
                         $escaped_content = html_entity_decode(strip_tags($content));
                     @endphp
-                    @if($entry['label'] == "Lottery Ticket 1 for 30")
-                        CATS
-                    @else
-{{--                    {{ $escaped_content }}--}}
-                        Dogaday
-                    @endif
+                    {{ $escaped_content }}
                 </td>
             @endforeach
         </tr>
