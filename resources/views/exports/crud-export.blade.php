@@ -37,7 +37,7 @@
                     @if($entry['label'] == "Lottery Ticket 1 for 30")
                         CATS
                     @else
-                    {{ $escaped_content }}
+                    {{ $entry }}
                     @endif
                 </td>
             @endforeach
